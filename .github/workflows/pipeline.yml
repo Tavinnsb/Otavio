@@ -1,0 +1,26 @@
+name: Pipeline de Teste de Versionamento
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Checkout do código
+        uses: actions/checkout@v4
+
+      - name: 2. Executar Teste e Gerar Identificador
+        run: |
+          echo "Executando testes..."
+          DATA_HOJE=$(date +'%d/%m/%Y')
+          echo "Eu, Otávio, finalizei o teste de Versionamento na data de $DATA_HOJE" > resultado.txt
+
+      - name: 3. Disponibilizar Artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: meu-artefato
+          path: resultado.txt
